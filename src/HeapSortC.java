@@ -48,26 +48,54 @@ public class HeapSortC {
 	public static void buildMaxHeap(int[] numbers) {
 		int heapsize = numbers.length;
 		for (int i = heapsize / 2 - 1; i >= 0; --i) {
-			maxHeapify(numbers, i);
+			maxHeapify1(numbers, i,heapsize);
 		}
 	}
 
-	public static void maxHeapify(int[] numbers, int i) {
-		int l = 2 * i + 1;
-		int r = 2 * i + 2;
+//	public static void maxHeapify(int[] numbers, int i) {
+//		int l = 2 * i + 1;
+//		int r = 2 * i + 2;
+//		int largest = i;
+//		if (l < numbers.length && numbers[i] < numbers[l]) {
+//			largest = l;
+//		}
+//		if (r < numbers.length && numbers[largest] < numbers[r]) {
+//			largest = r;
+//		}
+//		// 如果不符合最大堆的要求
+//		if (largest != i) {
+//			int temp = numbers[i];
+//			numbers[i] = numbers[largest];
+//			numbers[largest] = temp;
+//			maxHeapify(numbers, largest);
+//		}
+//
+//	}
+	
+	public static void maxHeapify1(int[] numbers, int i, int len) {
+		int l = 2 * i + 1;//下标从0开始时左孩子的下标
+		int r = 2 * i + 2;//下标从0开始时右孩子的下标
 		int largest = i;
-		if (l < numbers.length && numbers[i] < numbers[l]) {
+		if (l < len && numbers[i] < numbers[l]) {
 			largest = l;
 		}
-		if (r < numbers.length && numbers[largest] < numbers[r]) {
+		if (r < len && numbers[largest] < numbers[r]) {
 			largest = r;
 		}
-		// 如果不符合最大堆的要求
-		if (largest != i) {
+		//修改递归调用
+		while (largest != i) {
 			int temp = numbers[i];
 			numbers[i] = numbers[largest];
 			numbers[largest] = temp;
-			maxHeapify(numbers, largest);
+			i=largest;
+			l=2*i+1;
+			r=2*i+2;
+			if (l < len && numbers[i] < numbers[l]) {
+				largest = l;
+			}
+			if (r < len && numbers[largest] < numbers[r]) {
+				largest = r;
+			}
 		}
 
 	}
